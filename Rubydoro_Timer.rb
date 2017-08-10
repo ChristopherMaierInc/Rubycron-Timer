@@ -1,20 +1,12 @@
 require 'io/console'
 
 #Make these into a class
-def worktimer
-  @start_time = Time.now
-  @end_time = @start_time + 5
-
-  while Time.now < @end_time
-    sleep 1
-  end
-end
-
-def breaktimer
-  @break_start= Time.now
-  @break_end = @break_start + 2
-
-  while Time.now < @break_end
+def worktimer(num, word)
+  start_time = Time.now
+  end_time = start_time + num
+  system "cls"
+  puts "#{word}"
+  while Time.now < end_time
     sleep 1
   end
 end
@@ -24,27 +16,38 @@ puts "Do you want to start? Enter 'Yes' or 'No'."
 
 input = gets.chomp.capitalize
 
-if input == "Yes"
-  system "clear"
-  puts "Timer start"
-  worktimer
+  if input == "Yes"
 
-  system "clear"
-  puts "Time for a 5 minute break"
-  system(%Q{echo "\a"})
-  breaktimer
+    counter = 0
 
-  system "clear"
-  puts "Back to work!"
-  system(%Q{echo "\a"})
-  worktimer
+    thread = Thread.new do
 
-elsif input == "No"
-  puts "Cool! Have a good day!"
+        loop do
+          until counter == 10
 
-else
-  puts "Wrong input, CRASH AND BURN"
-  #Add rescue/retry here
+            #system(%Q{echo "\a"})
+            worktimer(5, "That's the spirit! Let's get our productivity caps on and work for 25 minutes straight!")
 
-system "clear"
-end
+            #system(%Q{echo "\a"})
+            worktimer(1, "Woohoo! You made it. We've definitely earned ourselves a 5 minute break.")
+
+            counter += 1
+          end
+        end
+      end
+      # puts "Press enter"
+      gets
+      puts "Program terminated"
+      Thread.kill(thread)
+# if program terminated, do NOT do a final 'clear screen' to notify user.
+
+  elsif input == "No"
+    puts "Cool! Have a good day!"
+
+  else
+    puts "Wrong input, CRASH AND BURN"
+    #Add rescue/retry here
+  end
+
+sleep 2
+system "cls"
