@@ -162,57 +162,63 @@ puts "#{" " * 9}#{Rainbow("Francesco Cirillo").aqua} in the late 1980s to make y
 gfx.space(1)
 puts "#{" " * 35}#{Rainbow("So, let's get to it!").silver.underline}"
 gfx.space(1)
-puts "#{" " * 12}Would you like to start your first work block? Please enter #{Rainbow("YES").italic.bright.underline} or #{Rainbow("NO").italic.bright.underline}"
+puts "#{" " * 22}Would you like to start your first work block?\n\n\n\n"
+puts "#{" " * 34}Please enter #{Rainbow("YES").italic.bright.underline} or #{Rainbow("NO").italic.bright.underline}"
 gfx.space(5)
 
 begin
 
-print "Your answer: " #Gets user input to determine if to start the timer or exit, with error handling if neither input is given, restarting from the top and asking for the correct input.
+print "#{" " * 11}Your answer: " #Gets user input to determine if to start the timer or exit, with error handling if neither input is given, restarting from the top and asking for the correct input.
 input = gets.chomp.upcase
 
   if input == "YES" #Starts the timer component
     #begin
       work_thread = Thread.new do
-        time.track(10, "#{" " * 15}That's the spirit! Let's get our productivity caps on and work for 25 minutes straight!")
+        time.track(10, "#{" " * 15}That's the spirit! Let's get our productivity caps on and work for #{Rainbow("25 minutes").color("#FF6347")} straight!")
         clearscreen
-        puts
+        gfx.space(5)
         gfx.work
         gfx.space(3)
         # puts "Woohoo! You made it. We've definitely earned ourselves a 5 minute break.\n".center(100, " ")
         # puts "Would you like to start your break?\n\n\n".center(100, " ")
         # puts "Please enter (#{Rainbow("Y").color("#FF6347")})es to continue or (#{Rainbow("N").color("#FF6347")})o to exit.".center(120, " ")
-        puts "#{" " * 10}Woohoo! You made it. We've definitely earned ourselves a 5 minute break.\n\n"
-        puts "#{" " * 29}Would you like to start your break?\n\n\n\n"
-        puts "#{" " * 23}Please enter (#{Rainbow("Y").color("#FF6347")})es to continue or (#{Rainbow("N").color("#FF6347")})o to exit."
+        puts "#{" " * 11}Woohoo! You made it. We've definitely earned ourselves a #{Rainbow("5 minute").color("#FF6347")} break.\n\n\n"
+        puts "#{" " * 30}Would you like to start your break?\n\n\n\n"
+        puts "#{" " * 36}Please enter #{Rainbow("YES").italic.bright.underline} or #{Rainbow("NO").italic.bright.underline}"
         sfx.bnotify
+        gfx.space(5)
+        print "#{" " * 11}Your answer: "
         end
 
       gets
       clearscreen
       gfx.space(5)
       sfx.error
-      puts "#{" " * 45}#{Rainbow("Rubydoro terminated. Exiting...").color("#FF6347")}"
+      puts "#{" " * 35}#{Rainbow("Rubydoro terminated. Exiting...").color("#FF6347")}"
       sleep 1
       Thread.kill(work_thread)
 
     break_thread = Thread.new do
 
               #system(%Q{echo "\a"})
-              time.track(5, "#{" " * 15}5 minutes. Just enought time for a coffee and a toilet break!")
+              time.track(5, "#{" " * 15}#{Rainbow("5 minutes").color("#FF6347")}. Just enought time for a coffee and a toilet break!")
               clearscreen
               gfx.space(5)
               gfx.coffee
               gfx.space(5)
-              puts "#{" " * 15}Ahhh, all refreshed now I hope? Time to get back into it!\n\n"
-              puts "#{" " * 16}Press #{Rainbow("return").color("#FF6347")} to start your next 25 minute work block..."
+              puts "#{" " * 15}Ahhh, all refreshed now I hope? Time to get back into it!\n\n\n"
+              puts "#{" " * 16}Would you like to start your next #{Rainbow("25 minute").color("#FF6347")} work block?\n\n\n\n"
+              puts "#{" " * 32}Please enter #{Rainbow("YES").italic.bright.underline} or #{Rainbow("NO").italic.bright.underline}"
               sfx.wnotify
+              gfx.space(5)
+              print "#{" " * 15}Your answer: "
         end
 
         gets
         clearscreen
         gfx.space(5)
         sfx.error
-        puts "#{" " * 45}#{Rainbow("Rubydoro terminated. Exiting...").color("#FF6347")}"
+        puts "#{" " * 35}#{Rainbow("Rubydoro terminated. Exiting...").color("#FF6347")}"
         Thread.kill(break_thread)
         # If program terminated, do NOT do a final 'clearscreen screen' to notify user.
 
