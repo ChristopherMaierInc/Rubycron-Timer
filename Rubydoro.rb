@@ -17,7 +17,7 @@ end
 
 class Sounds #All of the programs Sounds
 
-    def start
+    def start  #Method to signal the 'Startup Sound' on both OSX and Windows operating systems
       if OS.mac? == true
         say 'Welcome to Rubydoro Timer'
       else
@@ -25,7 +25,7 @@ class Sounds #All of the programs Sounds
       end
     end
 
-    def bnotify
+    def bnotify #Method to signal the 'Break Notification Sound' on both OSX and Windows operating systems
       if OS.mac? == true
         say 'Would you like to start your break?'
       else
@@ -33,7 +33,7 @@ class Sounds #All of the programs Sounds
       end
     end
 
-    def wnotify
+    def wnotify #Method to signal the 'Work Block Notification Sound' on both OSX and Windows operating systems
       if OS.mac? == true
         say 'Would you like to start your next work block?'
       else
@@ -41,7 +41,7 @@ class Sounds #All of the programs Sounds
       end
     end
 
-    def error
+    def error #Method to signal the 'Error Sound' on both OSX and Windows operating systems
       if OS.mac? == true
         say 'Program error'
       else
@@ -174,7 +174,7 @@ input = gets.chomp.upcase
   if input == "YES" #Starts the timer component
     #begin
       work_thread = Thread.new do
-        time.track(10, "#{" " * 15}That's the spirit! Let's get our productivity caps on and work for #{Rainbow("25 minutes").color("#FF6347")} straight!")
+        time.track(15, "#{" " * 15}That's the spirit! Let's get our productivity caps on and work for #{Rainbow("25 minutes").color("#FF6347")} straight!")
         clearscreen
         gfx.space(5)
         gfx.work
@@ -191,17 +191,17 @@ input = gets.chomp.upcase
         end
 
       gets
+      sfx.error
       clearscreen
       gfx.space(5)
-      sfx.error
-      puts "#{" " * 35}#{Rainbow("Rubydoro terminated. Exiting...").color("#FF6347")}"
+      # puts "#{" " * 35}#{Rainbow("Rubydoro terminated. Exiting...").color("#FF6347")}"
       sleep 1
       Thread.kill(work_thread)
 
     break_thread = Thread.new do
 
               #system(%Q{echo "\a"})
-              time.track(5, "#{" " * 15}#{Rainbow("5 minutes").color("#FF6347")}. Just enought time for a coffee and a toilet break!")
+              time.track(10, "#{" " * 15}#{Rainbow("5 minutes").color("#FF6347")}. Just enought time for a coffee and a toilet break!")
               clearscreen
               gfx.space(5)
               gfx.coffee
@@ -215,10 +215,10 @@ input = gets.chomp.upcase
         end
 
         gets
+        sfx.error
         clearscreen
         gfx.space(5)
-        sfx.error
-        puts "#{" " * 35}#{Rainbow("Rubydoro terminated. Exiting...").color("#FF6347")}"
+        # puts "#{" " * 35}#{Rainbow("Rubydoro terminated. Exiting...").color("#FF6347")}"
         Thread.kill(break_thread)
         # If program terminated, do NOT do a final 'clearscreen screen' to notify user.
 
